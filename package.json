@@ -1,0 +1,16 @@
+{
+  "name": "mern-boilerplate",
+  "version": "1.0.0",
+  "description": "A simple boilerplate for a MERN stack",
+  "main": "index.js",
+  "scripts": {
+    "front-end": "npm start --prefix ./front-end",
+    "back-end": "nodemon ./back-end/bin/www",
+    "start": "concurrently \"npm run front-end\" \"npm run back-end \" "
+  },
+  "author": "Manon de Saint-Ferreol",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
