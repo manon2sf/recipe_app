@@ -7,16 +7,16 @@ const express = require("express");
 const router = express.Router();
 
 /* Controllers */
-const post = require("../controllers/post");
+const ingredient = require("../controllers/ingredient");
 
 /**
  *   Routes
  */
 
-/* GET posts */
-router.get("/posts", post.getPosts);
+/* GET ingredients */
+router.get("/ingredients", ingredient.getIngredients);
 
-/* POST post */
-router.post("/post", post.createPost);
+/* POST ingredient */
+router.post("/ingredient", ingredient.createIngredient);
 
 module.exports = router;

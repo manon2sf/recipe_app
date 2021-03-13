@@ -1,16 +1,18 @@
 {
-  "name": "mern-boilerplate",
+  "name": "recipe_menu_app",
   "version": "1.0.0",
-  "description": "A simple boilerplate for a MERN stack",
+  "description": "Planner for week menus",
   "main": "index.js",
   "scripts": {
     "front-end": "npm start --prefix ./front-end",
     "back-end": "nodemon ./back-end/bin/www",
-    "start": "concurrently \"npm run front-end\" \"npm run back-end \" "
+    "start": "concurrently \"npm run front-end\" \"npm run back-end \" ",
+    "setup": "npm install && cd ./back-end && npm install && cd ../front-end && npm install && cd .."
   },
   "author": "Manon de Saint-Ferreol",
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^5.2.0"
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.7"
   }
 }

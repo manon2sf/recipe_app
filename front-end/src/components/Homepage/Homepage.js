@@ -13,63 +13,64 @@ function Homepage(props) {
   /*
    * State
    */
-  const [posts, setPosts] = useState([]);
-  const [newPost, setNewPost] = useState({});
+  const [ingredients, setIngredients] = useState([]);
+  const [newIngredient, setNewIngredient] = useState({});
 
   /*
    * Effects
    */
   useEffect(() => {
-    getPosts();
+    getIngredients();
   }, []);
 
   /*
    * Methods
    */
 
-  /* Handle text inputs for new post */
-  const handlePostInput = (e) => {
-    setNewPost({ ...newPost, [e.target.name]: e.target.value });
+  /* Handle text inputs */
+  const handleInput = (e) => {
+    setNewIngredient({ ...newIngredient, [e.target.name]: e.target.value });
   };
 
-  /* Display Posts */
-  const displayPosts = () =>
-    posts.map((post, key) => (
+  /* Display ingredients */
+  const displayIngredients = () =>
+    ingredients.map((ingredient, key) => (
       <li key={key}>
-        <p className="author-name">{post.author}</p>
-        <p className="content">{post.content}</p>
+        <p className="category">{ingredient.category}</p> 
+        <p className="name">{ingredient.name}</p>
+        <p className="unit">{ingredient.unit}</p>
       </li>
     ));
 
-  /* GET posts */
-  const getPosts = () => {
-    fetchFromApi("GET", "/posts").then(
+  /* GET ingredients */
+  const getIngredients = () => {
+    fetchFromApi("GET", "/ingredients").then(
       (data) => {
-        if (Array.isArray(data)) {
-          setNewPost(data);
+       if (Array.isArray(data.ingredients)) {
+          setIngredients(data.ingredients);
         }
       },
       (error) => {
-        console.error("An error as occured while fetching posts");
+        console.error("An error as occured while fetching ingredients");
       }
     );
   };
 
   /* Add posts */
-  const addPost = () => {
-    if (!newPost.author || !newPost.content) {
+  const addIngredient = () => {
+    if (!newIngredient.name || !newIngredient.unit) {
       return;
     }
 
-    fetchFromApi("POST", "/post", newPost).then(
+    fetchFromApi("POST", "/ingredient", newIngredient).then(
       (data) => {
         if (data.success) {
-          setPosts([...posts, newPost]);
-          setNewPost({});
+          setIngredients([...ingredients, newIngredient]);
+          setNewIngredient({});
         }
       },
       (error) => {
-        console.error("An error as occured while submitting post");
+        console.error("An error as occured while submitting ingredient");
       }
     );
   };
@@ -77,20 +78,30 @@ function Homepage(props) {
   return (
     <div className="page-container">
       <h2>Home</h2>
-      <ul>{displayPosts()}</ul>
+      <ul>{displayIngredients()}</ul>
       <div className="input-group">
+        <label for="name">Name</label>
         <input
           type="text"
-          name="author"
-          value={newPost.author}
-          onChange={handlePostInput}
+          name="name"
+          value={newIngredient.name}
+          onChange={handleInput}
         />
-        <textarea
-          name="content"
-          value={newPost.content}
-          onChange={handlePostInput}
+         <label for="category">Category</label>
+        <input
+          type="text"
+          name="category"
+          value={newIngredient.category}
+          onChange={handleInput}
         />
-        <button onClick={addPost}>Envoyer</button>
+         <label for="unit">Unit</label>
+        <input
+          type="text"
+          name="unit"
+          value={newIngredient.unit}
+          onChange={handleInput}
+        />
+        <button onClick={addIngredient}>Envoyer</button>
       </div>
     </div>
   );
